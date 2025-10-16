@@ -1,133 +1,127 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/api";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
-const Ratings = ({ lectureId, maxRating = 5 }) => {
+const Ratings = ({ entityId, entityType, isPL = false }) => {
+  const [ratings, setRatings] = useState([]);
+  const [avgRating, setAvgRating] = useState({ avgRating: 0, totalRatings: 0 });
   const [rating, setRating] = useState(0);
   const [hovered, setHovered] = useState(0);
   const [comments, setComments] = useState("");
   const [msg, setMsg] = useState("");
-  const [existingRatings, setExistingRatings] = useState([]);
-  const [avgRating, setAvgRating] = useState(null);
 
-  // ✅ Decode user ID from token
-  const userId = (() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      return decoded.id || decoded.user_id;
+  const token = localStorage.getItem("token");
+  let userId = null;
+  if (token) {
+    try { userId = jwtDecode(token).id || jwtDecode(token).user_id; } 
+    catch { console.warn("Invalid token"); }
+  }
+
+  const fetchRatings = async () => {
+    try {
+      const url = isPL ? "/ratings/all" : `/ratings/${entityId}`;
+      const res = await api.get(url, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {}
+      });
+      if (isPL) setRatings(res.data);
+      else setRatings([]);
+    } catch (err) {
+      console.error(err);
+      setMsg("❌ Failed to load ratings.");
     }
-    return null;
-  })();
+  };
 
-  // Fetch ratings + average
+  const fetchAvg = async () => {
+    try {
+      const res = await api.get(`/ratings/${entityId}/average`);
+      setAvgRating({ avgRating: res.data.avgRating || 0, totalRatings: res.data.totalRatings || 0 });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    const fetchRatings = async () => {
-      try {
-        const res = await api.get(`/ratings/${lectureId}`);
-        setExistingRatings(res.data.ratings || []);
-
-        const avgRes = await api.get(`/ratings/${lectureId}/average`);
-        setAvgRating(avgRes.data);
-      } catch (err) {
-        console.error("Fetch ratings error:", err);
-      }
-    };
     fetchRatings();
-  }, [lectureId]);
+    if (!isPL) fetchAvg();
+  }, [entityId]);
 
-  // Submit rating
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!userId) {
-      setMsg("Error: User not found. Please login.");
-      return;
-    }
-    if (rating === 0) {
-      setMsg("Please select a rating.");
-      return;
-    }
+    if (!userId) return setMsg("⚠️ Login first");
+    if (rating < 1 || rating > 5) return setMsg("⚠️ Select rating");
 
     try {
-      // ✅ Send to backend with lectureId
-      await api.post(`/ratings/${lectureId}`, { rating, comments });
-      setMsg("Rating submitted successfully!");
-      setComments("");
+      await api.post(
+        `/ratings/${entityId}`,
+        { rating, comments, entityType },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setMsg("✅ Rating submitted successfully");
       setRating(0);
-
-      // Refresh ratings
-      const res = await api.get(`/ratings/${lectureId}`);
-      setExistingRatings(res.data.ratings || []);
-
-      const avgRes = await api.get(`/ratings/${lectureId}/average`);
-      setAvgRating(avgRes.data);
+      setComments("");
+      fetchAvg();
     } catch (err) {
-      console.error("Submit rating error:", err);
-      setMsg("Failed to submit rating");
+      console.error(err);
+      setMsg(err.response?.data?.error || "❌ Failed to submit rating");
     }
   };
 
   return (
-    <div className="ratings-component text-start">
-      <h4>Rate this Lecture</h4>
-      {msg && <div className="alert alert-info">{msg}</div>}
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-2">
-          {[...Array(maxRating)].map((_, index) => {
-            const star = index + 1;
-            return (
+    <div className="ratings-component text-white">
+      {!isPL && (
+        <>
+          <h4>Rate this {entityType}</h4>
+          {msg && <p>{msg}</p>}
+          <form onSubmit={handleSubmit}>
+            {[1,2,3,4,5].map((s) => (
               <span
-                key={star}
-                role="button"
-                style={{
-                  fontSize: "2rem",
-                  cursor: "pointer",
-                  color: (hovered || rating) >= star ? "gold" : "lightgray",
-                  transition: "color 150ms",
-                }}
-                onClick={() => setRating(star)}
-                onMouseEnter={() => setHovered(star)}
+                key={s}
+                className={(hovered || rating) >= s ? "active-star" : ""}
+                onClick={() => setRating(s)}
+                onMouseEnter={() => setHovered(s)}
                 onMouseLeave={() => setHovered(0)}
+                style={{ cursor: "pointer", fontSize: "1.5rem", color: (hovered || rating) >= s ? "#FFD700" : "#ccc" }}
               >
                 ★
               </span>
-            );
-          })}
-        </div>
+            ))}
+            <br />
+            <textarea
+              value={comments}
+              onChange={e => setComments(e.target.value)}
+              placeholder="Optional comments"
+              rows={3}
+              style={{ width: "100%", marginTop: "0.5rem" }}
+            />
+            <button type="submit" className="btn btn-primary mt-2">Submit Rating</button>
+          </form>
 
-        <textarea
-          className="form-control mb-2"
-          value={comments}
-          onChange={(e) => setComments(e.target.value)}
-          placeholder="Optional comments"
-          rows={3}
-        />
-        <button className="btn btn-primary">Submit Rating</button>
-      </form>
-
-      {/* ✅ Show average rating */}
-      {avgRating && (
-        <div className="mt-3">
-          <strong>Average Rating:</strong>{" "}
-          {avgRating.avgRating ? avgRating.avgRating.toFixed(1) : 0} ★ (
-          {avgRating.totalRatings} ratings)
-        </div>
+          <p className="mt-2">
+            ⭐ Average Rating: {avgRating.avgRating.toFixed(1)} / 5 ({avgRating.totalRatings} ratings)
+          </p>
+        </>
       )}
 
-      <h5 className="mt-4">Previous Ratings</h5>
-      {existingRatings.length === 0 && <p>No ratings yet.</p>}
-      {existingRatings.map((r) => (
-        <div key={r.id} className="card p-2 my-2 bg-dark text-white">
-          <p>
-            <strong>{r.student_name}</strong> rated: {r.rating} ★
-          </p>
-          {r.comments && <p>Comments: {r.comments}</p>}
-          <small className="text-muted">
-            {new Date(r.created_at).toLocaleString()}
-          </small>
-        </div>
-      ))}
+      {isPL && (
+        <>
+          <h4>All Ratings</h4>
+          {ratings.length === 0 ? (
+            <p>No ratings yet.</p>
+          ) : (
+            <div className="list-group">
+              {ratings.map((r) => (
+                <div key={r.id} className="list-group-item bg-dark text-white mb-2 rounded">
+                  <p>
+                    <strong>{r.username || "User"}</strong> rated <strong>{r.lecture_name}</strong>: {"★".repeat(r.rating)} ({r.rating}/5)
+                  </p>
+                  {r.comments && <p>{r.comments}</p>}
+                  <small className="text-muted">{new Date(r.created_at).toLocaleString()}</small>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

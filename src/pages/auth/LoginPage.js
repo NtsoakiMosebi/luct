@@ -16,13 +16,11 @@ export default function LoginPage() {
       const res = await api.post("/auth/login", { username, password });
 
       // Save token and user info
-      localStorage.setItem("token", res.data.token || "");
-      localStorage.setItem("role", res.data.user.role || "");
-      localStorage.setItem("name", res.data.user.name || "");
-      localStorage.setItem("faculty_id", res.data.user.faculty_id || "");
-      
-      // ✅ Save userId automatically for student pages
-      localStorage.setItem("userId", res.data.user.id || "");
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.user.role);
+      localStorage.setItem("name", res.data.user.name);
+      localStorage.setItem("faculty_id", res.data.user.faculty_id);
+      localStorage.setItem("userId", res.data.user.id);
 
       // Redirect based on role
       switch (res.data.user.role) {
@@ -68,7 +66,9 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className="btn btn-primary w-100">Login</button>
+        <button type="submit" className="btn btn-primary w-100">
+          Login
+        </button>
       </form>
     </div>
   );

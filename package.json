@@ -8,13 +8,8 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.12.2",
-    "bcrypt": "^6.0.0",
     "bootstrap": "^5.3.8",
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
-    "mysql2": "^3.15.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
@@ -45,7 +40,7 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "This project was bootstrapped with Create React App.",
   "main": "index.js",
   "keywords": [],
   "author": "",

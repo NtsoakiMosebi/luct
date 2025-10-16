@@ -1,0 +1,298 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"re",
+				"return"
+			],
+			[
+				"co",
+				"const"
+			],
+			[
+				"f",
+				"function"
+			],
+			[
+				"ho",
+				"hotpink"
+			],
+			[
+				"p",
+				"pl-dashboard"
+			],
+			[
+				"te",
+				"text-white"
+			],
+			[
+				"c",
+				"container"
+			],
+			[
+				"pink",
+				"deeppink"
+			],
+			[
+				"cont",
+				"Container"
+			],
+			[
+				"bo",
+				"border"
+			],
+			[
+				"fon",
+				"font-family"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"P",
+				"ProductForm"
+			],
+			[
+				"j",
+				"jpg"
+			],
+			[
+				"d",
+				"download"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"in",
+				"input"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/NTSOAKI_MOSEBI/AppData/Roaming/Sublime Text/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/luct-backend/migrate-users.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/luct-backend/vercel.json",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/pages/students/StudentDashoard.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/api.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/backend/Server.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/components/Reports.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/components/PrivateRoute.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/components/Navbar.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/App.css",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/App.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/pages/Register.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/pages/Login.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/pages/LecturerReport.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/pages/Dashboard.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/myapp/src/components/LecturerReportingForm.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/backend/routes/lecturerRoutes.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/backend/db.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/demo20/backend/server.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/database/db.json",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/App.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/utils/storage.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/views/Dashboard.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/App.css",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/MyForm.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/Form.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/Comp.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/TopBar.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/Reporting.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/Sales.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/Customer.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/index.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/Report.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/InventoryManagement.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/Dashboard.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/ProductForm.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/ProductManagement.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/StockTransactionForm.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/StockTransactionForm.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/package.json",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/ProductTable.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/components/Navbar.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/901018748/myapp/src/pages/ProductManagement.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/Components/QuickAccessPanel.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/Components/OverviewCard.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/SidebarMenu.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/Preview.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/QuickAccess.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/QuickAccessButton.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/SearchBar.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/RecentActivity.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/OverviewCards.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/Sidebar.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/BirthdayCard.js",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/mosebi/myapp/src/components/StatsPanel.js",
+		"/C/Users/NTSOAKI_MOSEBI/AppData/Roaming/Sublime Text/Packages/User/sub.py",
+		"/C/Users/NTSOAKI_MOSEBI/Documents/index1.html",
+		"/C/Users/NTSOAKI_MOSEBI/AppData/Roaming/Sublime Text/Packages/User/name.py",
+		"/C/Users/NTSOAKI_MOSEBI/AppData/Roaming/Sublime Text/Packages/User/Python39Good.sublime-build",
+		"/C/Users/NTSOAKI_MOSEBI/AppData/Roaming/Sublime Text/Packages/User/test.pyt",
+		"/C/Users/NTSOAKI_MOSEBI/AppData/Roaming/Sublime Text/Packages/User/file.py",
+		"/C/Users/NTSOAKI_MOSEBI/AppData/Roaming/Sublime Text/Packages/User/python3.sublime-build",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/prog/python39good.sublime-build",
+		"/C/Users/NTSOAKI_MOSEBI/Desktop/Demo/untitled.sublime-build"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 44.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/python3.sublime-build",
+	"project": "server.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 342.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

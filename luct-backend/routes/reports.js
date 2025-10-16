@@ -1,3 +1,4 @@
+// luct-backend/routes/reports.js
 const express = require("express");
 const router = express.Router();
 const pool = require("../db");
@@ -8,9 +9,10 @@ const jwt = require("jsonwebtoken");
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: "Missing token" });
+
   const token = authHeader.split(" ")[1];
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secretkey"); // use secret from .env
     req.user = decoded;
     next();
   } catch (err) {
@@ -18,8 +20,7 @@ const authenticate = (req, res, next) => {
   }
 };
 
-
-// Submit new report (LECTURER)// 
+// Submit new report (LECTURER)
 router.post(
   "/",
   authenticate,
@@ -67,7 +68,7 @@ router.post(
         ]
       );
 
-      // ✅ Add monitoring log
+      // Add monitoring log
       await pool.query(
         "INSERT INTO monitoring_logs (user_id, action, target) VALUES (?, ?, ?)",
         [req.user.id, "submitted report", `report_id:${result.insertId}`]
@@ -81,8 +82,7 @@ router.post(
   }
 );
 
-
-// Get MY reports (LECTURER)// 
+// Get MY reports (LECTURER)
 router.get("/mine", authenticate, async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -102,8 +102,7 @@ router.get("/mine", authenticate, async (req, res) => {
   }
 });
 
-
-// Get ALL reports (PL/PRL)// 
+// Get ALL reports (PL/PRL)
 router.get("/", authenticate, async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -121,20 +120,17 @@ router.get("/", authenticate, async (req, res) => {
   }
 });
 
-
-// Submit feedback (PL/PRL)// 
+// Submit feedback (PL/PRL)
 router.post("/:id/feedback", authenticate, async (req, res) => {
   const { id } = req.params;
   let { feedback, role } = req.body;
 
-  if (!role || !feedback) {
+  if (!role || !feedback)
     return res.status(400).json({ error: "Missing role or feedback" });
-  }
 
   role = role.toLowerCase();
-  if (!["pl", "prl"].includes(role)) {
+  if (!["pl", "prl"].includes(role))
     return res.status(400).json({ error: "Invalid role" });
-  }
 
   const column = role === "pl" ? "pl_feedback" : "prl_feedback";
 
@@ -155,7 +151,6 @@ router.post("/:id/feedback", authenticate, async (req, res) => {
       [feedback, id]
     );
 
-    // ✅ Add monitoring log
     await pool.query(
       "INSERT INTO monitoring_logs (user_id, action, target) VALUES (?, ?, ?)",
       [req.user.id, `submitted ${role.toUpperCase()} feedback`, `report_id:${id}`]
@@ -168,8 +163,7 @@ router.post("/:id/feedback", authenticate, async (req, res) => {
   }
 });
 
-
-// Ratings for lectures//
+// Ratings for lectures
 router.post("/ratings/:lectureId", authenticate, async (req, res) => {
   const { lectureId } = req.params;
   const { rating, comments } = req.body;
@@ -183,7 +177,6 @@ router.post("/ratings/:lectureId", authenticate, async (req, res) => {
       [req.user.id, lectureId, rating, comments || null]
     );
 
-    // ✅ Add monitoring log
     await pool.query(
       "INSERT INTO monitoring_logs (user_id, action, target) VALUES (?, ?, ?)",
       [req.user.id, "submitted rating", `lecture_id:${lectureId}`]
@@ -196,8 +189,7 @@ router.post("/ratings/:lectureId", authenticate, async (req, res) => {
   }
 });
 
-
-// Get all ratings for a lecture// 
+// Get all ratings for a lecture
 router.get("/ratings/:lectureId", authenticate, async (req, res) => {
   const { lectureId } = req.params;
   try {
@@ -216,7 +208,7 @@ router.get("/ratings/:lectureId", authenticate, async (req, res) => {
   }
 });
 
-// Get average rating for a lecture//
+// Get average rating for a lecture
 router.get("/ratings/:lectureId/average", authenticate, async (req, res) => {
   const { lectureId } = req.params;
   try {
@@ -233,15 +225,16 @@ router.get("/ratings/:lectureId/average", authenticate, async (req, res) => {
   }
 });
 
-// Monitoring logs// 
+// Monitoring logs for current user
 router.get("/monitoring", authenticate, async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT ml.id, ml.user_id, u.name, u.role, ml.action, ml.target, ml.timestamp
       FROM monitoring_logs ml
       JOIN users u ON ml.user_id = u.id
+      WHERE ml.user_id = ?
       ORDER BY ml.timestamp DESC
-    `);
+    `, [req.user.id]);
     res.json(rows);
   } catch (err) {
     console.error("Monitoring fetch error:", err);

@@ -21,6 +21,7 @@ export default function RegisterPage() {
       setSuccess(res.data.message);
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
+      console.error("Register error:", err);
       setError(err.response?.data?.error || "Registration failed");
     }
   };
@@ -64,7 +65,9 @@ export default function RegisterPage() {
           <option value="prl">PRL</option>
           <option value="pl">PL</option>
         </select>
-        <button type="submit" className="btn btn-primary w-100">Register</button>
+        <button type="submit" className="btn btn-primary w-100">
+          Register
+        </button>
       </form>
     </div>
   );

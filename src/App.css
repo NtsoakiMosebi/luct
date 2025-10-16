@@ -341,7 +341,7 @@ footer {
   box-sizing: border-box;
 }
 
-/* PL Dashboard specific cards */
+
 .pl-dashboard .card {
   background-color: #1a1a1a;
   color: #fff;
@@ -351,11 +351,49 @@ footer {
   transition: transform 0.2s, box-shadow 0.3s;
 }
 
+
+/* Card hover effect */
+.lecturer-dashboard .card,
+.student-dashboard .card,
+.prl-dashboard .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lecturer-dashboard .card:hover,
+.student-dashboard .card:hover,
+.prl-dashboard .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+
+.lecturer-dashboard .card button,
+.student-dashboard .card button,
+.prl-dashboard .card button {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.lecturer-dashboard .card button:hover,
+.student-dashboard .card button:hover,
+.prl-dashboard .card button:hover {
+  background-color: hotpink;
+  color: #fff;               
+  transform: translateY(-2px); 
+}
+
+
+
+.lecturer-dashboard .card:hover,
+.student-dashboard .card:hover,
+.prl-dashboard .card:hover,
 .pl-dashboard .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+
 }
 
+.student-dashboard .btn-primary,
+.student-dashboard .btn-secondary,
 .pl-dashboard .btn-primary,
 .pl-dashboard .btn-secondary {
   margin-top: 1rem;
@@ -364,6 +402,7 @@ footer {
   padding: 0.6rem 1.5rem;
   transition: background-color 0.3s ease, transform 0.2s;
 }
+
 
 .pl-dashboard .btn-primary:hover {
   background-color: darkgreen;
@@ -434,7 +473,7 @@ footer {
   }
 }
 
-/*Navbar customizations */
+
 .custom-navbar {
   background-color: #001f4d;
   padding: 0.75rem 1rem;
@@ -455,8 +494,65 @@ footer {
 
 
 
+.rating-form,
+.rating-display,
+#ratings-overview {
+  background-color: #007bff; 
+  padding: 1.5rem;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
 
 
+.rating-stars .star {
+  font-size: 2rem;
+  color: #ffc0cb; /* Hotpink stars */
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+}
 
+.rating-stars .star.active,
+.rating-stars .star:hover {
+  transform: scale(1.3);
+  color: #ff69b4;
+}
+
+.rating-form button {
+  background-color: #ff69b4; 
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.rating-form button:hover {
+  background-color: #ff1493; 
+  transform: scale(1.05);
+}
+
+
+.rating-item {
+  background-color: #0056b3; 
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 6px;
+  color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.rating-item p {
+  margin: 0.25rem 0;
+  color: #f1f1f1;
+}
+
+.rating-item small {
+  color: #d0e4ff;
+}
 
 
