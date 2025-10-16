@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "app_id": "app_bc9ce29f-888a-4402-848a-908641196d07",
+      "org_id": "user_211ed66e-f78d-465c-b1fd-fb798f1680cf",
+      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_bc9ce29f-888a-4402-848a-908641196d07.git",
+      "git_ssh_url": "git+ssh://git@push-n3-par-clevercloud-customers.services.clever-cloud.com/app_bc9ce29f-888a-4402-848a-908641196d07.git",
+      "name": "luct-backend",
+      "alias": "luct-backend"
+    }
+  ]
+}
