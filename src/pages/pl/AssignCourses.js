@@ -2,63 +2,112 @@ import React, { useEffect, useState } from "react";
 import api from "../../api/api";
 
 const AssignCourses = () => {
-  const [classes, setClasses] = useState([]);
-  const [selectedClass, setSelectedClass] = useState("");
+  const [courses, setCourses] = useState([]);
+  const [lecturers, setLecturers] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedLecturer, setSelectedLecturer] = useState("");
+  const [venue, setVenue] = useState("");
+  const [scheduledTime, setScheduledTime] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const fetchClasses = async () => {
+    const fetchData = async () => {
       try {
-        const res = await api.get("/classes");
-        setClasses(res.data || []);
+        const [coursesRes, lecturersRes] = await Promise.all([
+          api.get("/classes/courses", { headers: { Authorization: `Bearer ${token}` } }),
+          api.get("/classes/lecturers", { headers: { Authorization: `Bearer ${token}` } }),
+        ]);
+        setCourses(coursesRes.data || []);
+        setLecturers(lecturersRes.data || []);
       } catch (err) {
-        console.error("Error fetching classes:", err);
-        setError("Failed to load classes.");
+        console.error(err);
+        setError("Failed to load courses or lecturers.");
       } finally {
         setLoading(false);
       }
     };
-    fetchClasses();
-  }, []);
+
+    fetchData();
+  }, [token]);
+
+  const handleAssign = async () => {
+    if (!selectedCourse || !selectedLecturer) {
+      setError("Please select both course and lecturer.");
+      setSuccess("");
+      return;
+    }
+
+    setError("");
+    setSuccess("");
+
+    try {
+      const res = await api.post(
+        "/classes/assign",
+        {
+          course_id: parseInt(selectedCourse),
+          lecturer_id: parseInt(selectedLecturer),
+          venue: venue || null,
+          scheduled_time: scheduledTime || null,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setSuccess(res.data.message || "Lecturer assigned successfully!");
+      setSelectedCourse("");
+      setSelectedLecturer("");
+      setVenue("");
+      setScheduledTime("");
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.error || "Failed to assign lecturer.");
+    }
+  };
+
+  if (loading) return <p>Loading courses and lecturers...</p>;
 
   return (
     <div className="container mt-5">
-      <h2>Assign Courses</h2>
-      {loading && <p>Loading classes...</p>}
+      <h2>Assign Lecturers to Classes</h2>
       {error && <p className="text-danger">{error}</p>}
+      {success && <p className="text-success">{success}</p>}
 
-      {!loading && classes.length > 0 && (
-        <div className="mt-4">
-          <select
-            className="form-select"
-            value={selectedClass}
-            onChange={(e) => setSelectedClass(e.target.value)}
-          >
-            <option value="">Select a class</option>
-            {classes.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.course_name} - {c.class_name} - {c.venue || "-"}
-              </option>
-            ))}
-          </select>
+      <div className="mb-3">
+        <label>Select Course:</label>
+        <select className="form-select" value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)}>
+          <option value="">-- Choose a course --</option>
+          {courses.map(c => (
+            <option key={c.id} value={c.id}>
+              {c.name} ({c.code})
+            </option>
+          ))}
+        </select>
+      </div>
 
-          {selectedClass && (
-            <div className="mt-3 card p-3">
-              <p>
-                <strong>Total Registered Students:</strong>{" "}
-                {classes.find((c) => c.id == selectedClass)?.total_registered_students || 0}
-              </p>
-              <p>
-                <strong>Scheduled Time:</strong>{" "}
-                {classes.find((c) => c.id == selectedClass)?.scheduled_time || "Not set"}
-              </p>
-            </div>
-          )}
-        </div>
-      )}
+      <div className="mb-3">
+        <label>Select Lecturer:</label>
+        <select className="form-select" value={selectedLecturer} onChange={(e) => setSelectedLecturer(e.target.value)}>
+          <option value="">-- Choose a lecturer --</option>
+          {lecturers.map(l => (
+            <option key={l.id} value={l.id}>{l.username}</option>
+          ))}
+        </select>
+      </div>
 
-      {!loading && classes.length === 0 && <p>No classes available.</p>}
+      <div className="mb-3">
+        <label>Venue (optional):</label>
+        <input type="text" className="form-control" value={venue} onChange={e => setVenue(e.target.value)} />
+      </div>
+
+      <div className="mb-3">
+        <label>Scheduled Time (optional):</label>
+        <input type="datetime-local" className="form-control" value={scheduledTime} onChange={e => setScheduledTime(e.target.value)} />
+      </div>
+
+      <button className="btn btn-primary" onClick={handleAssign}>Assign Lecturer</button>
     </div>
   );
 };
